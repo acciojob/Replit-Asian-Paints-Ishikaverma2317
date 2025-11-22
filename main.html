@@ -10,7 +10,7 @@
     margin-bottom: 20px;
   }
 
-  .grid-item {
+  #grid-item {
     width: 100px;
     height: 100px;
     border: 2px solid black;
@@ -31,15 +31,15 @@
 <body>
 
 <div id="grid-container">
-  <div class="grid-item" id="1">1</div>
-  <div class="grid-item" id="2">2</div>
-  <div class="grid-item" id="3">3</div>
-  <div class="grid-item" id="4">4</div>
-  <div class="grid-item" id="5">5</div>
-  <div class="grid-item" id="6">6</div>
-  <div class="grid-item" id="7">7</div>
-  <div class="grid-item" id="8">8</div>
-  <div class="grid-item" id="9">9</div>
+  <div id="grid-item">1</div>
+  <div id="grid-item">2</div>
+  <div id="grid-item">3</div>
+  <div id="grid-item">4</div>
+  <div id="grid-item">5</div>
+  <div id="grid-item">6</div>
+  <div id="grid-item">7</div>
+  <div id="grid-item">8</div>
+  <div id="grid-item">9</div>
 </div>
 
 <input type="text" id="block_id" placeholder="Enter Block ID (1-9)">
@@ -55,21 +55,20 @@
     let block = document.getElementById("block_id").value;
     let color = document.getElementById("colour_id").value;
 
-    // Reset all grid block backgrounds
-    for (let i = 1; i <= 9; i++) {
-      document.getElementById(i.toString()).style.backgroundColor = "transparent";
-    }
+    let items = document.querySelectorAll("#grid-item");
 
-    // Apply selected color
+    // Reset all blocks
+    items.forEach(box => box.style.backgroundColor = "transparent");
+
+    // Apply color to selected block index (block - 1)
     if (block >= 1 && block <= 9) {
-      document.getElementById(block).style.backgroundColor = color;
+      items[block - 1].style.backgroundColor = color;
     }
   });
 
   resetBtn.addEventListener("click", function () {
-    for (let i = 1; i <= 9; i++) {
-      document.getElementById(i.toString()).style.backgroundColor = "transparent";
-    }
+    let items = document.querySelectorAll("#grid-item");
+    items.forEach(box => box.style.backgroundColor = "transparent");
   });
 </script>
 
