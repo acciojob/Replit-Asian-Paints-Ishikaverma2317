@@ -1,76 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-  #grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-gap: 10px;
-    width: 330px;
-    margin-bottom: 20px;
-  }
+  <style>
+    #grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 10px;
+      width: 330px;
+      margin-top: 20px;
+    }
 
-  #grid-item {
-    width: 100px;
-    height: 100px;
-    border: 2px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    background-color: transparent;
-  }
+    .grid-item {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      background-color: transparent;
+    }
 
-  input, button {
-    margin: 5px;
-    padding: 8px;
-  }
-</style>
+    input, button {
+      margin: 5px;
+      padding: 8px;
+    }
+  </style>
 </head>
-
 <body>
 
-<div id="grid-container">
-  <div id="grid-item">1</div>
-  <div id="grid-item">2</div>
-  <div id="grid-item">3</div>
-  <div id="grid-item">4</div>
-  <div id="grid-item">5</div>
-  <div id="grid-item">6</div>
-  <div id="grid-item">7</div>
-  <div id="grid-item">8</div>
-  <div id="grid-item">9</div>
-</div>
+  <h2>Asian Paints: Grid Color Changer</h2>
 
-<input type="text" id="block_id" placeholder="Enter Block ID (1-9)">
-<input type="text" id="colour_id" placeholder="Enter Color">
-<button id="change_button">Change Color</button>
-<button id="Reset">Reset</button>
+  <label>Block ID:</label>
+  <input type="number" id="block_id" min="1" max="9">
 
-<script>
-  const changeBtn = document.getElementById("change_button");
-  const resetBtn = document.getElementById("Reset");
+  <label>Color:</label>
+  <input type="text" id="colour_id" placeholder="e.g., red, blue, #ff0000">
 
-  changeBtn.addEventListener("click", function () {
-    let block = document.getElementById("block_id").value;
-    let color = document.getElementById("colour_id").value;
+  <br><br>
 
-    let items = document.querySelectorAll("#grid-item");
+  <button id="change_button">Change Color</button>
+  <button id="Reset">Reset</button>
 
-    // Reset all blocks
-    items.forEach(box => box.style.backgroundColor = "transparent");
+  <div id="grid-container"></div>
 
-    // Apply color to selected block index (block - 1)
-    if (block >= 1 && block <= 9) {
-      items[block - 1].style.backgroundColor = color;
+  <script>
+    // Create 3x3 grid dynamically
+    const container = document.getElementById("grid-container");
+
+    for (let i = 1; i <= 9; i++) {
+      let div = document.createElement("div");
+      div.className = "grid-item";
+      div.id = i; // ID of each cell is the number
+      div.innerText = i;
+      container.appendChild(div);
     }
-  });
 
-  resetBtn.addEventListener("click", function () {
-    let items = document.querySelectorAll("#grid-item");
-    items.forEach(box => box.style.backgroundColor = "transparent");
-  });
-</script>
+    // Change color button logic
+    document.getElementById("change_button").onclick = function () {
+      let blockId = document.getElementById("block_id").value;
+      let color = document.getElementById("colour_id").value;
+
+      // Reset all to transparent
+      for (let i = 1; i <= 9; i++) {
+        document.getElementById(i).style.backgroundColor = "transparent";
+      }
+
+      // Apply color if valid
+      if (blockId >= 1 && blockId <= 9 && color.trim() !== "") {
+        document.getElementById(blockId).style.backgroundColor = color;
+      }
+    };
+
+    // Reset button logic
+    document.getElementById("Reset").onclick = function () {
+      for (let i = 1; i <= 9; i++) {
+        document.getElementById(i).style.backgroundColor = "transparent";
+      }
+    };
+  </script>
 
 </body>
 </html>
